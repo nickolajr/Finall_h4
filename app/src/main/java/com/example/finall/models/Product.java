@@ -1,6 +1,8 @@
 package com.example.finall.models;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private Long id;
     private String name;
     private Double price;
@@ -18,4 +20,13 @@ public class Product {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

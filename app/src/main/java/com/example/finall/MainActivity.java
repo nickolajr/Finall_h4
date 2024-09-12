@@ -1,18 +1,19 @@
 package com.example.finall;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.finall.models.Product;
 import com.example.finall.recyclerview.ProductAdapter;
 import com.example.finall.retrofit.ApiClient;
 import com.example.finall.retrofit.ProductApi;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
+    private Button viewCartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
+        viewCartButton = findViewById(R.id.viewCartButton);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fetchProducts();
+
+        viewCartButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void fetchProducts() {
@@ -43,14 +52,18 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Product> productList = response.body();
-                    productAdapter = new ProductAdapter(productList);
+                    productAdapter = new ProductAdapter(productList, product -> {
+                        Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+                        intent.putExtra("product", (Serializable) product); // Cast to Serializable
+                        startActivity(intent);
+                    });
                     recyclerView.setAdapter(productAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.e("MainActivity", "Error fetching products", t);
+                // Handle failure
             }
         });
     }
