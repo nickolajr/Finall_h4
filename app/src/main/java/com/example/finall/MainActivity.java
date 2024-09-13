@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private Button viewCartButton;
+    private Button createUserButton;
+    private Button createProductButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         viewCartButton = findViewById(R.id.viewCartButton);
+        createUserButton = findViewById(R.id.createUserButton);
+        createProductButton = findViewById(R.id.createProductButton);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -40,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         viewCartButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);
+        });
+
+        createUserButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CreateUserActivity.class);
+            startActivity(intent);
+        });
+
+        createProductButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CreateProductActivity.class);
             startActivity(intent);
         });
     }

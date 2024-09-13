@@ -22,14 +22,14 @@ public class CartActivity extends AppCompatActivity {
 
         cartTextView = findViewById(R.id.cartTextView);
 
-        // Retrieve cart items from CartManager
+        //Retrieve cart items from CartManage
         cartItems = CartManager.getInstance().getCartItems();
 
         if (cartItems == null) {
             cartItems = new ArrayList<>();
         }
 
-        // Display cart items
+
         displayCartItems();
     }
 

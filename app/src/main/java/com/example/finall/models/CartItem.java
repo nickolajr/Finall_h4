@@ -19,11 +19,10 @@ public class CartItem implements Serializable {
 
     @Override
     public String toString() {
-        return "CartItem{" +
-                "name='" + product.getName() + '\'' +
-                ", description='" + product.getDescription() + '\'' +
-                ", price=" + product.getPrice() +
-                ", quantity=" + quantity +
-                '}';
+        return
+                product.getName() + '\'' +
+                product.getDescription() + '\'' +
+                + '\'' + ", price="+ product.getPrice() +
+                ", quantity=" + quantity;
     }
 }
